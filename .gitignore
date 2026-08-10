@@ -1,0 +1,46 @@
+# Build outputs
+Debug/
+Release/
+build/
+
+# IDE specific files
+.settings/
+.metadata/
+**/.settings/
+.metadata/
+/*.launch
+*.log
+
+
+# User-specific files
+*.launch
+
+# Generated files
+*.d
+*.o
+*.su
+*.list
+*.map
+
+# Temporary files
+*~
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Toolchain specific
+*.d
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# Version file (pre-build steps)
+Core/Inc/version.h
