@@ -65,8 +65,8 @@ void Error_Handler(void);
 #define SW_MODE_GPIO_Port GPIOB
 #define SW_CENTER_Pin GPIO_PIN_7
 #define SW_CENTER_GPIO_Port GPIOB
-#define SW_START_STOP_Pin GPIO_PIN_8
-#define SW_START_STOP_GPIO_Port GPIOB
+#define SW_ARM_Pin GPIO_PIN_8
+#define SW_ARM_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
