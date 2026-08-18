@@ -17,9 +17,9 @@ typedef struct {
 typedef enum {
 	BTN_MODE,
 	BTN_CENTER,
-	BTN_ARM
+	BTN_ARM,
+	BTN_COUNT
 }button_t;
 
-bool button_poll(button_state_t *btn);
-bool button_pressed(button_state_t *btn);
+bool button_get(button_t btn);
 #endif /* INC_BUTTONS_H_ */
