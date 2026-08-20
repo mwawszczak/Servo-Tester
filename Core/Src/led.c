@@ -35,13 +35,26 @@ void led_update(void) {
 	// if LED_TIME_BLOCK time passed - reset timer and update led state
 	if ((time_ms_now - time_ms) > LED_TIME_BLOCK) {
 
-		time_ms = time_ms_now;
+
 		for (led_t led = LED_AUTO; led < LED_COUNT; led++) {
 			if (leds[led].position & leds[led].pattern) led_on(leds[led]);
 			else led_off(leds[led]);
 
 			leds[led].position >>= 1;
-			if (leds[led].position == 0) leds[led].position = 0x80000000;
+			if (leds[led].position == 0) leds[led].position = led_position_reset;
 		}
+
+		time_ms = time_ms_now;
 	}
+}
+
+led_error_t led_pattern_select(led_t led, led_pattern_t pattern) {
+
+	if (led >= LED_COUNT) return LED_NAME_ERROR;
+
+	if (pattern >= LED_PATTERNS_COUNT) return LED_PATTERN_ERROR;
+
+	leds[led].pattern = pattern;
+	leds[led].position = led_position_reset;
+	return NO_ERROR;
 }

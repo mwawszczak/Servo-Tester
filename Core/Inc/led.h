@@ -11,6 +11,11 @@ typedef struct {
 	uint32_t pattern;
 	uint32_t position;
 }led_state_t;
+typedef enum {
+	NO_ERROR,
+	LED_NAME_ERROR,
+	LED_PATTERN_ERROR
+}led_error_t;
 
 typedef enum {
 	LED_AUTO,
@@ -27,6 +32,9 @@ typedef enum {
 	LED_FAST_BLINK_x2,
 	LED_PATTERNS_COUNT
 }led_pattern_t;
+
 void led_update(void);
+led_error_t led_pattern_select(led_t led, led_pattern_t pattern);
+
 
 #endif /* INC_LED_H_ */
