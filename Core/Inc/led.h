@@ -3,7 +3,7 @@
 
 #include "gpio.h"
 
-#define LED_POSITION_RESET 0x00
+#define LED_TIME_BLOCK 32 	// 32ms for shortest blink
 
 typedef struct {
 	GPIO_TypeDef *port;
