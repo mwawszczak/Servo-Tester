@@ -54,7 +54,7 @@ led_error_t led_pattern_select(led_t led, led_pattern_t pattern) {
 
 	if (pattern >= LED_PATTERNS_COUNT) return LED_PATTERN_ERROR;
 
-	leds[led].pattern = pattern;
+	leds[led].pattern = led_patterns[pattern];
 	leds[led].position = led_position_reset;
 	return NO_ERROR;
 }
