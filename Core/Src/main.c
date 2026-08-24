@@ -26,6 +26,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "mode_fsm.h"
+#include "buttons.h"
+#include "led.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -101,6 +104,14 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+
+	  if (button_get(BTN_MODE)) led_pattern_select(LED_AUTO, LED_SLOW_BLINK);
+
+	  if (button_get(BTN_CENTER)) led_pattern_select(LED_AUTO, LED_FAST_BLINK_x2);
+
+	  if (button_get(BTN_ARM)) led_pattern_select(LED_AUTO, LED_FAST_BLINK);
+
+	  led_update();
 
     /* USER CODE BEGIN 3 */
   }
