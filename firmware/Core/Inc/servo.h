@@ -1,20 +1,19 @@
 #ifndef INC_SERVO_H_
 #define INC_SERVO_H_
 #include <stdint.h>
-
+#include <stdbool.h>
 
 typedef enum {
-	DIR_UP,
-	DIR_DOWN
+	UP,
+	DOWN
 }dir_t;
 
-typedef enum {
-	SERVO_POSITION_MIN,
-	SERVO_POSITION_MAX,
-	SERVO_POSITION_CENTER,
-	SERVO_POSITION_MANUAL,
-	SEVO_POSITION_COUNT
-}servo_position_t;
+typedef struct {
+	uint32_t time_ms;
+	int current_position;
+	dir_t direction;
+	bool target_position_reached;
+}servo_state_t;
 
 typedef enum servo_error {
 	NO_ERROR,
@@ -25,7 +24,8 @@ void servo_init(void);
 void servo_min(void);
 void servo_max(void);
 void servo_center(void);
-servo_error_t servo_positon(uint16_t servo_position);
+void servo_sweep(void);
+servo_error_t servo_position_set(uint16_t servo_position);
 void servo_arm(void);
 void servo_disarm(void);
 
