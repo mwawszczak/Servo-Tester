@@ -2,6 +2,7 @@
 #define INC_SERVO_H_
 #include <stdint.h>
 
+
 typedef enum {
 	DIR_UP,
 	DIR_DOWN
