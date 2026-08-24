@@ -44,3 +44,29 @@ Thumbs.db
 
 # Version file (pre-build steps)
 Core/Inc/version.h
+
+# Hardware (KiCad)
+# Backups & autosave
+*-backups/
+_autosave-*
+*.bak
+*.kicad_pcb-bak
+*.kicad_sch-bak
+
+# Lockfile
+*.lck
+
+# Cache
+fp-info-cache
+*-cache.lib
+
+# Production files
+*.zip
+Gerber/
+production/
+*.pos
+*.drl
+
+# Netlist
+*.net
+
