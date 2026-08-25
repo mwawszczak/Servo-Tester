@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
+#include "dma.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -92,6 +93,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_TIM3_Init();
   MX_USART1_UART_Init();
@@ -104,14 +106,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-
-	  if (button_get(BTN_MODE)) led_pattern_select(LED_AUTO, LED_SLOW_BLINK);
-
-	  if (button_get(BTN_CENTER)) led_pattern_select(LED_AUTO, LED_FAST_BLINK_x2);
-
-	  if (button_get(BTN_ARM)) led_pattern_select(LED_AUTO, LED_FAST_BLINK);
-
-	  led_update();
 
     /* USER CODE BEGIN 3 */
   }
