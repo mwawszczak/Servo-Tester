@@ -2,11 +2,13 @@
 ADC1.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_0
 ADC1.ContinuousConvMode=ENABLE
 ADC1.DMAContinuousRequests=ENABLE
-ADC1.IPParameters=Rank-0\#ChannelRegularConversion,master,SelectedChannel,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag,OversamplingMode,SamplingTimeCommon1,SamplingTimeCommon2,ContinuousConvMode,Overrun,DMAContinuousRequests
+ADC1.IPParameters=Rank-0\#ChannelRegularConversion,master,SelectedChannel,Channel-0\#ChannelRegularConversion,SamplingTime-0\#ChannelRegularConversion,NbrOfConversionFlag,OversamplingMode,SamplingTimeCommon1,SamplingTimeCommon2,ContinuousConvMode,Overrun,DMAContinuousRequests,Ratio,RightBitShift
 ADC1.NbrOfConversionFlag=1
 ADC1.Overrun=ADC_OVR_DATA_OVERWRITTEN
 ADC1.OversamplingMode=ENABLE
 ADC1.Rank-0\#ChannelRegularConversion=1
+ADC1.Ratio=ADC_OVERSAMPLING_RATIO_16
+ADC1.RightBitShift=ADC_RIGHTBITSHIFT_4
 ADC1.SamplingTime-0\#ChannelRegularConversion=ADC_SAMPLINGTIME_COMMON_1
 ADC1.SamplingTimeCommon1=ADC_SAMPLETIME_160CYCLES_5
 ADC1.SamplingTimeCommon2=ADC_SAMPLETIME_160CYCLES_5
