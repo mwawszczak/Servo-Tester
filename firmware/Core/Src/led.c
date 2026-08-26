@@ -56,5 +56,5 @@ led_error_t led_pattern_select(led_t led, led_pattern_t pattern) {
 
 	leds[led].pattern = led_patterns[pattern];
 	leds[led].position = led_position_reset;
-	return NO_ERROR;
+	return LED_NO_ERROR;
 }

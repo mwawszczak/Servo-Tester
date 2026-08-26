@@ -12,7 +12,7 @@ typedef struct {
 	uint32_t position;
 }led_state_t;
 typedef enum {
-	NO_ERROR,
+	LED_NO_ERROR,
 	LED_NAME_ERROR,
 	LED_PATTERN_ERROR
 }led_error_t;
