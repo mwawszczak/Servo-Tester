@@ -29,11 +29,18 @@
 #include "mode_fsm.h"
 #include "buttons.h"
 #include "led.h"
+#include "pos_input.h"
+#include "servo.h"
 #include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+typedef struct {
+	led_pattern_t led_auto_pattern;
+	led_pattern_t led_manual_pattern;
+} led_pattern_pair_t;
+
 
 /* USER CODE END PTD */
 
@@ -50,7 +57,58 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+static const led_pattern_pair_t led_table[SERVO_MODE_COUNT][ARM_STATUS_COUNT] = {
+		[SERVO_MODE_MANUAL] = {
+				[ARMED] = {
+						.led_auto_pattern = LED_OFF,
+						.led_manual_pattern = LED_ON
+				},
+				[DISARMED] = {
+						.led_auto_pattern = LED_OFF,
+						.led_manual_pattern = LED_SLOW_BLINK
+				}
+		},
+		[SERVO_MODE_AUTO_CENTER] = {
+				[ARMED] = {
+						.led_auto_pattern = LED_ON,
+						.led_manual_pattern = LED_OFF
+				},
+				[DISARMED] = {
+						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_manual_pattern = LED_OFF
+				}
+		},
+		[SERVO_MODE_AUTO_MIN] = {
+				[ARMED] = {
+						.led_auto_pattern = LED_FAST_BLINK_x1,
+						.led_manual_pattern = LED_OFF
+				},
+				[DISARMED] = {
+						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_manual_pattern = LED_OFF
+				}
+			},
+		[SERVO_MODE_AUTO_MAX] = {
+				[ARMED] = {
+						.led_auto_pattern = LED_FAST_BLINK_x2,
+						.led_manual_pattern = LED_OFF
+				},
+				[DISARMED] = {
+						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_manual_pattern = LED_OFF
+				}
+		},
+		[SERVO_MODE_AUTO_SWEEP] = {
+				[ARMED] = {
+						.led_auto_pattern = LED_FAST_BLINK,
+						.led_manual_pattern = LED_OFF
+				},
+				[DISARMED] = {
+						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_manual_pattern = LED_OFF
+				}
+		}
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,12 +157,73 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   fsm_init();
+  arm_status_t arm_status = fsm_is_armed();
+  arm_status_t arm_status_previous = arm_status;
+  servo_mode_t current_mode = fsm_get_mode();
+  servo_mode_t previous_mode = current_mode;
+
+  led_pattern_select(LED_MANUAL, led_table[current_mode][arm_status].led_manual_pattern);
+  led_pattern_select(LED_AUTO, led_table[current_mode][arm_status].led_auto_pattern);
+
+  position_input_init();
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if (button_get(BTN_MODE)) fsm_handle_event(EVT_SW_MODE);
+	  if (button_get(BTN_CENTER)) fsm_handle_event(EVT_SW_CENTER);
+	  if (button_get(BTN_ARM)) fsm_handle_event(EVT_SW_ARM);
+
+	  arm_status = fsm_is_armed();
+	  current_mode = fsm_get_mode();
+
+
+	  bool mode_changed;
+	  bool arm_changed;
+
+	  mode_changed = (current_mode != previous_mode);
+	  previous_mode = current_mode;
+
+	  arm_changed = (arm_status != arm_status_previous);
+	  arm_status_previous = arm_status;
+
+	  // LED pattern select, only once in loop (it resets time position)
+	  if (arm_changed || mode_changed) {
+		  led_pattern_select(LED_MANUAL, led_table[current_mode][arm_status].led_manual_pattern);
+		  led_pattern_select(LED_AUTO, led_table[current_mode][arm_status].led_auto_pattern);
+	  }
+
+	  switch(current_mode) {
+		  case SERVO_MODE_MANUAL:
+			  servo_position_set(position_input_get());
+			  break;
+		  case SERVO_MODE_AUTO_CENTER:
+			  servo_center();
+			  break;
+		  case SERVO_MODE_AUTO_MIN:
+			  servo_min();
+			  break;
+		  case SERVO_MODE_AUTO_MAX:
+			  servo_max();
+			  break;
+		  case SERVO_MODE_AUTO_SWEEP:
+			  servo_sweep();
+			  break;
+		  default:
+			  break;
+	  }
+
+	  if (arm_changed) {
+		  if (arm_status == ARMED) servo_arm();
+		  else servo_disarm();
+	  }
+
+
+	  led_update();
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
