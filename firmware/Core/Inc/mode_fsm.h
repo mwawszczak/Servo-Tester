@@ -19,8 +19,15 @@ typedef enum {
 	SERVO_MODE_COUNT
 } servo_mode_t;
 
+typedef enum {
+	ARMED,
+	DISARMED,
+	ARM_STATUS_COUNT
+} arm_status_t;
+
 void fsm_init(void);
 void fsm_handle_event(fsm_event_t event);
 servo_mode_t fsm_get_mode(void);
-bool fsm_is_armed(void);
+arm_status_t fsm_is_armed(void);
+
 #endif /* INC_MODE_FSM_H_ */
