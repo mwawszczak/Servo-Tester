@@ -20,7 +20,7 @@ servo_error_t servo_position_set(uint16_t servo_position) {
 
 	int diff;
 	if ((servo_position < servo_position_min) || (servo_position > servo_position_max))
-		return POSITION_ERROR;
+		return SERVO_POSITION_ERROR;
 
 	// check if current_position is equal to target position
 	if (servo.current_position != servo_position) {
@@ -43,7 +43,7 @@ servo_error_t servo_position_set(uint16_t servo_position) {
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, servo.current_position);
 	}
 	else servo.target_position_reached = true;
-	return NO_ERROR;
+	return SERVO_NO_ERROR;
 }
 
 void servo_init(void) {

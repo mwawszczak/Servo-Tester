@@ -16,8 +16,8 @@ typedef struct {
 }servo_state_t;
 
 typedef enum servo_error {
-	NO_ERROR,
-	POSITION_ERROR
+	SERVO_NO_ERROR,
+	SERVO_POSITION_ERROR
 }servo_error_t;
 
 void servo_init(void);
