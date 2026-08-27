@@ -84,7 +84,7 @@ static const led_pattern_pair_t led_table[SERVO_MODE_COUNT][ARM_STATUS_COUNT] = 
 						.led_manual_pattern = LED_OFF
 				},
 				[DISARMED] = {
-						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_auto_pattern = LED_HALF_FAST_BLINK_x1,
 						.led_manual_pattern = LED_OFF
 				}
 			},
@@ -94,7 +94,7 @@ static const led_pattern_pair_t led_table[SERVO_MODE_COUNT][ARM_STATUS_COUNT] = 
 						.led_manual_pattern = LED_OFF
 				},
 				[DISARMED] = {
-						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_auto_pattern = LED_HALF_FAST_BLINK_x2,
 						.led_manual_pattern = LED_OFF
 				}
 		},
@@ -104,7 +104,7 @@ static const led_pattern_pair_t led_table[SERVO_MODE_COUNT][ARM_STATUS_COUNT] = 
 						.led_manual_pattern = LED_OFF
 				},
 				[DISARMED] = {
-						.led_auto_pattern = LED_SLOW_BLINK,
+						.led_auto_pattern = LED_HALF_FAST_BLINK,
 						.led_manual_pattern = LED_OFF
 				}
 		}
