@@ -195,26 +195,29 @@ int main(void)
 		  led_pattern_select(LED_MANUAL, led_table[current_mode][arm_status].led_manual_pattern);
 		  led_pattern_select(LED_AUTO, led_table[current_mode][arm_status].led_auto_pattern);
 	  }
+	  if (arm_status == ARMED) {
 
-	  switch(current_mode) {
-		  case SERVO_MODE_MANUAL:
-			  servo_position_set(position_input_get());
-			  break;
-		  case SERVO_MODE_AUTO_CENTER:
-			  servo_center();
-			  break;
-		  case SERVO_MODE_AUTO_MIN:
-			  servo_min();
-			  break;
-		  case SERVO_MODE_AUTO_MAX:
-			  servo_max();
-			  break;
-		  case SERVO_MODE_AUTO_SWEEP:
-			  servo_sweep();
-			  break;
-		  default:
-			  break;
+		  switch(current_mode) {
+				  case SERVO_MODE_MANUAL:
+					  servo_position_set(position_input_get());
+					  break;
+				  case SERVO_MODE_AUTO_CENTER:
+					  servo_center();
+					  break;
+				  case SERVO_MODE_AUTO_MIN:
+					  servo_min();
+					  break;
+				  case SERVO_MODE_AUTO_MAX:
+					  servo_max();
+					  break;
+				  case SERVO_MODE_AUTO_SWEEP:
+					  servo_sweep();
+					  break;
+				  default:
+					  break;
+			  }
 	  }
+
 
 	  if (arm_changed) {
 		  if (arm_status == ARMED) servo_arm();
